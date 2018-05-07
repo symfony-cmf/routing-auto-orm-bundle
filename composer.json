@@ -1,0 +1,54 @@
+{
+    "name": "wearemarketing/routing-auto-orm-bundle",
+    "type": "symfony-bundle",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "WAM Develop Team",
+            "email": "develop@wearemarketing.com"
+        }
+    ],
+    "require": {
+        "php": "^7.1",
+        "doctrine/orm": "~2.5.0",
+        "symfony-cmf/core-bundle": "^2.0",
+        "symfony-cmf/routing-auto-bundle": "^2.0"
+    },
+    "require-dev": {
+        "symfony/phpunit-bridge": "^3.3 || ^4.0",
+        "symfony/yaml": "^2.8 || ^3.3 || ^4.0",
+        "matthiasnoback/symfony-dependency-injection-test": "^1.0",
+        "matthiasnoback/symfony-config-test": "^2.2",
+        "symfony-cmf/testing": "^2.1",
+        "knplabs/doctrine-behaviors": "1.4.*",
+        "phpspec/prophecy": "^1.7"
+    },
+    "suggest": {},
+    "autoload": {
+        "psr-4": {
+            "Symfony\\Cmf\\Bundle\\RoutingAutoOrmBundle\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Symfony\\Cmf\\Bundle\\RoutingAutoOrmBundle\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
+        }
+    },
+    "scripts": {
+        "test": [
+            "vendor/symfony-cmf/testing/bin/travis/doctrine_orm.sh",
+            "SYMFONY_PHPUNIT_REMOVE=\"symfony/yaml\" vendor/bin/simple-phpunit"
+        ]
+    },
+    "conflict": {
+        "phpunit/phpunit": "<5.7",
+        "sebastian/exporter": "<2.0"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
