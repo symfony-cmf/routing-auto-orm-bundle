@@ -1,6 +1,7 @@
 {
     "name": "wearemarketing/routing-auto-orm-bundle",
     "type": "symfony-bundle",
+    "description": "",
     "license": "MIT",
     "authors": [
         {
@@ -8,11 +9,13 @@
             "email": "develop@wearemarketing.com"
         }
     ],
+    "repositories": [
+        { "type": "github", "url": "git@github.com:wearemarketing/RoutingAutoBundle.git"}
+    ],
     "require": {
         "php": "^7.1",
         "doctrine/orm": "~2.5.0",
-        "symfony-cmf/core-bundle": "^2.0",
-        "symfony-cmf/routing-auto-bundle": "^2.0"
+        "symfony-cmf/routing-auto-bundle": "dev-feature/allow-orm-support"
     },
     "require-dev": {
         "symfony/phpunit-bridge": "^3.3 || ^4.0",
@@ -20,6 +23,7 @@
         "matthiasnoback/symfony-dependency-injection-test": "^1.0",
         "matthiasnoback/symfony-config-test": "^2.2",
         "symfony-cmf/testing": "^2.1",
+        "symfony-cmf/core-bundle": "^2.1",
         "knplabs/doctrine-behaviors": "1.4.*",
         "phpspec/prophecy": "^1.7"
     },
