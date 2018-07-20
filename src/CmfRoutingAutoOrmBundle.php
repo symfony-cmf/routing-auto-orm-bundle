@@ -12,6 +12,7 @@
 namespace Symfony\Cmf\Bundle\RoutingAutoOrmBundle;
 
 use Doctrine\Bundle\DoctrineBundle\DependencyInjection\Compiler\DoctrineOrmMappingsPass;
+use Symfony\Cmf\Bundle\RoutingAutoOrmBundle\DependencyInjection\Compiler\AdaptRefreshCommandPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
@@ -26,6 +27,8 @@ class CmfRoutingAutoOrmBundle extends Bundle
         $container->getParameterBag()->remove('cmf_routing.backend_type_phpcr');
 
         $this->buildOrmCompilerPass($container);
+
+        $container->addCompilerPass(new AdaptRefreshCommandPass());
     }
 
     /**

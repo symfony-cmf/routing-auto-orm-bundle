@@ -53,13 +53,19 @@ class RefreshOrmCommandTest extends OrmBaseTestCase
 
         $this->updateBlogTitle($repository);
 
+        $container = $this->getContainer();
+        $metadataFactory = $container->get('cmf_routing_auto.metadata.factory');
+        $autoRouteManager = $container->get('cmf_routing_auto.auto_route_manager');
+        $manager = $container->get('doctrine.orm.entity_manager');
+        $adapter = $container->get('cmf_routing_auto.adapter.orm');
+
         $application = $this->getApplication();
         $input = new ArrayInput([
             '--verbose' => true,
         ]);
         $output = new NullOutput();
 //        $output = new StreamOutput(fopen('php://stdout', 'w'));
-        $command = new RefreshCommand();
+        $command = new RefreshCommand($metadataFactory, $autoRouteManager, $manager, $adapter);
         $command->setApplication($application);
         $command->run($input, $output);
 

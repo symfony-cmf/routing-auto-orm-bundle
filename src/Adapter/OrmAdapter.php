@@ -16,7 +16,7 @@ use Doctrine\Common\Util\ClassUtils;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping\ClassMetadata;
 use Symfony\Cmf\Bundle\CoreBundle\Translatable\TranslatableInterface;
-use Symfony\Cmf\Bundle\RoutingAutoBundle\Adapter\AutoRouteRefreshCommandAdapterInterface;
+use Symfony\Cmf\Bundle\RoutingAutoBundle\Adapter\AutoRouteRefreshAdapterInterface;
 use Symfony\Cmf\Bundle\RoutingAutoOrmBundle\Doctrine\Orm\AutoRoute;
 use Symfony\Cmf\Component\RoutingAuto\AdapterInterface;
 use Symfony\Cmf\Component\RoutingAuto\Model\AutoRouteInterface;
@@ -27,7 +27,7 @@ use Symfony\Cmf\Component\RoutingAuto\UriContext;
  *
  * @author WAM Team <develop@wearemarketing.com>
  */
-class OrmAdapter implements AdapterInterface, AutoRouteRefreshCommandAdapterInterface
+class OrmAdapter implements AdapterInterface, AutoRouteRefreshAdapterInterface
 {
     const TAG_NO_MULTILANG = 'no-multilang';
 
