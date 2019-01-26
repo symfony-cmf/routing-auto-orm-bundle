@@ -28,7 +28,7 @@ class Kernel extends TestKernel
             new CmfRoutingAutoBundle(),
             new CmfRoutingAutoOrmBundle(),
 
-            new \Symfony\Cmf\Bundle\RoutingAutoOrmBundle\Tests\Fixtures\App\TestBundle(),
+            new TestBundle(),
         ]);
     }
 
