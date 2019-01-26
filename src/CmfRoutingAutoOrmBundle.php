@@ -27,8 +27,6 @@ class CmfRoutingAutoOrmBundle extends Bundle
         $container->getParameterBag()->remove('cmf_routing.backend_type_phpcr');
 
         $this->buildOrmCompilerPass($container);
-
-        $container->addCompilerPass(new AdaptRefreshCommandPass());
     }
 
     /**

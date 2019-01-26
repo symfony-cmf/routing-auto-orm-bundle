@@ -16,7 +16,6 @@ use Doctrine\Common\Util\ClassUtils;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping\ClassMetadata;
 use Symfony\Cmf\Bundle\CoreBundle\Translatable\TranslatableInterface;
-use Symfony\Cmf\Bundle\RoutingAutoBundle\Adapter\AutoRouteRefreshAdapterInterface;
 use Symfony\Cmf\Bundle\RoutingAutoOrmBundle\Doctrine\Orm\AutoRoute;
 use Symfony\Cmf\Component\RoutingAuto\AdapterInterface;
 use Symfony\Cmf\Component\RoutingAuto\Model\AutoRouteInterface;
@@ -27,7 +26,7 @@ use Symfony\Cmf\Component\RoutingAuto\UriContext;
  *
  * @author WAM Team <develop@wearemarketing.com>
  */
-class OrmAdapter implements AdapterInterface, AutoRouteRefreshAdapterInterface
+class OrmAdapter implements AdapterInterface
 {
     const TAG_NO_MULTILANG = 'no-multilang';
 
@@ -283,25 +282,6 @@ class OrmAdapter implements AdapterInterface, AutoRouteRefreshAdapterInterface
         }
 
         $autoRoute->setContent($object);
-    }
-
-    public function getAllContent(string $classFqn)
-    {
-        $qb = $this->em->createQueryBuilder();
-        $qb->select('a')
-            ->from($classFqn, 'a');
-        $q = $qb->getQuery();
-        $content = $q->getResult();
-
-        return $content;
-    }
-
-    public function getIdentifier($autoRouteableContent)
-    {
-        $unitOfWork = $this->em->getUnitOfWork();
-        $identifier = $unitOfWork->getSingleIdentifierValue($autoRouteableContent);
-
-        return $identifier;
     }
 
     /**
