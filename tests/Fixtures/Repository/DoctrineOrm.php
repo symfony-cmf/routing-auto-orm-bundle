@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Symfony\Cmf\Bundle\RoutingAutoOrmBundle\Tests\Functional\Repository;
+namespace Symfony\Cmf\Bundle\RoutingAutoOrmBundle\Tests\Fixtures\Repository;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\NoResultException;

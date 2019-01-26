@@ -9,14 +9,14 @@
  * file that was distributed with this source code.
  */
 
-namespace Symfony\Cmf\Bundle\RoutingAutoOrmBundle\Tests\Functional\Orm\Command;
+namespace Symfony\Cmf\Bundle\RoutingAutoOrmBundle\Tests\Functional\Command;
 
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Cmf\Bundle\RoutingAutoOrmBundle\Command\RefreshCommand;
 use Symfony\Cmf\Bundle\RoutingAutoOrmBundle\Doctrine\Orm\AutoRoute;
 use Symfony\Cmf\Bundle\RoutingAutoOrmBundle\Tests\Fixtures\App\Entity\Blog;
 use Symfony\Cmf\Bundle\RoutingAutoOrmBundle\Tests\Functional\OrmBaseTestCase;
-use Symfony\Cmf\Bundle\RoutingAutoOrmBundle\Tests\Functional\Repository\DoctrineOrm;
+use Symfony\Cmf\Bundle\RoutingAutoOrmBundle\Tests\Fixtures\Repository\DoctrineOrm;
 use Symfony\Cmf\Component\Testing\Functional\DbManager\ORM;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Output\NullOutput;
@@ -27,7 +27,7 @@ use Symfony\Component\Console\Output\StreamOutput;
  *
  * @author WAM Team <develop@wearemarketing.com>
  */
-class RefreshOrmCommandTest extends OrmBaseTestCase
+class RefreshCommandTest extends OrmBaseTestCase
 {
     public function getKernelConfiguration()
     {

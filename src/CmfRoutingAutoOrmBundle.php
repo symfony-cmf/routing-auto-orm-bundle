@@ -23,7 +23,6 @@ class CmfRoutingAutoOrmBundle extends Bundle
         parent::build($container);
 
         // Disabled phpcr mappings
-
         $container->getParameterBag()->remove('cmf_routing.backend_type_phpcr');
 
         $this->buildOrmCompilerPass($container);

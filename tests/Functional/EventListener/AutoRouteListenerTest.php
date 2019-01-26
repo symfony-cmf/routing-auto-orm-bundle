@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Symfony\Cmf\Bundle\RoutingAutoOrmBundle\Tests\Functional;
+namespace Symfony\Cmf\Bundle\RoutingAutoOrmBundle\Tests\Functional\EventListener;
 
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Cmf\Bundle\RoutingAutoOrmBundle\Doctrine\Orm\AutoRoute;
@@ -22,6 +22,7 @@ use Symfony\Cmf\Bundle\RoutingAutoOrmBundle\Tests\Fixtures\App\Entity\Page;
 use Symfony\Cmf\Bundle\RoutingAutoOrmBundle\Tests\Fixtures\App\Entity\Post;
 use Symfony\Cmf\Bundle\RoutingAutoOrmBundle\Tests\Fixtures\App\Entity\SeoArticle;
 use Symfony\Cmf\Bundle\RoutingAutoOrmBundle\Tests\Fixtures\App\Entity\SeoArticleMultilang;
+use Symfony\Cmf\Bundle\RoutingAutoOrmBundle\Tests\Functional\OrmBaseTestCase;
 use Symfony\Cmf\Bundle\RoutingAutoOrmBundle\Tests\Functional\Repository\DoctrineOrm;
 use Symfony\Cmf\Component\RoutingAuto\Model\AutoRouteInterface;
 use Symfony\Cmf\Component\Testing\Functional\DbManager\ORM;
@@ -31,7 +32,7 @@ use Symfony\Cmf\Component\Testing\Functional\DbManager\ORM;
  *
  * @author WAM Team <develop@wearemarketing.com>
  */
-class DoctrineOrmAutoRouteListenerTest extends OrmBaseTestCase
+class AutoRouteListenerTest extends OrmBaseTestCase
 {
     public function getKernelConfiguration()
     {
@@ -72,7 +73,6 @@ class DoctrineOrmAutoRouteListenerTest extends OrmBaseTestCase
         /** @var AutoRoute $route */
         $route = $routes[0];
         $this->assertInstanceOf(AutoRoute::class, $route);
-        $locale = 'no-multilang';
         $this->assertContains('BlogNoTranslatable_'.$blog->getId().'_', $route->getName());
         $this->assertEquals('BlogNoTranslatable_'.$blog->getId(), $route->getCanonicalName());
         $this->assertEquals(
@@ -728,6 +728,8 @@ class DoctrineOrmAutoRouteListenerTest extends OrmBaseTestCase
         $article->title = 'Hai';
         $this->getObjectManager()->persist($article);
         $this->getObjectManager()->flush();
+
+        $this->assertTrue($works = true);
     }
 
     /**

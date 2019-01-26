@@ -12,7 +12,7 @@
 namespace Symfony\Cmf\Bundle\RoutingAutoOrmBundle\Tests\Functional;
 
 use Symfony\Bundle\FrameworkBundle\Console\Application;
-use Symfony\Cmf\Bundle\RoutingAutoOrmBundle\Tests\Functional\Repository\DoctrineOrm;
+use Symfony\Cmf\Bundle\RoutingAutoOrmBundle\Tests\Fixtures\Repository\DoctrineOrm;
 use Symfony\Cmf\Component\Testing\Functional\BaseTestCase as TestingBaseTestCase;
 
 class OrmBaseTestCase extends TestingBaseTestCase
@@ -25,9 +25,6 @@ class OrmBaseTestCase extends TestingBaseTestCase
 
         $container = $this->getContainer();
         switch (self::$kernel->getEnvironment()) {
-//            case 'doctrine_phpcr_odm':
-//                $this->repository = new Repository\DoctrinePhpcrOdm($container);
-//                break;
             case 'orm':
                 $this->repository = new DoctrineOrm($container);
 

@@ -32,28 +32,9 @@ class CmfRoutingAutoOrmExtension extends Extension implements PrependExtensionIn
 
         $config = $processor->processConfiguration($configuration, $configs);
 
-//        $adapterName = null;
-//        if (isset($config['adapter'])) {
-//            $adapterName = $config['adapter'];
-//        }
-
-//        $hasProvider = true;
         $loader->load('orm.xml');
-//        if (null === $adapterName) {
-//            $adapterName = 'doctrine_orm';
-//        }
 
         $container->setParameter('cmf_routing_auto.auto_route_entity.class', $config['route_class']);
-
-
-//        if (false === $hasProvider && null === $adapterName) {
-//            throw new InvalidConfigurationException(sprintf(
-//                'No adapter has been configured, you either need to enable a persistence layer or '.
-//                'explicitly specify an adapter using the "adapter" configuration key.'
-//            ));
-//        }
-
-//        $container->setParameter('cmf_routing_auto.adapter_name', $adapterName);
     }
 
     public function prepend(ContainerBuilder $container)
@@ -83,7 +64,6 @@ class CmfRoutingAutoOrmExtension extends Extension implements PrependExtensionIn
 
         if (isset($bundles['CmfRoutingAutoBundle'])) {
             $cmfRoutingAutoBundle = [
-//                'auto_mapping' => false,
                 'adapter' => 'doctrine_orm',
                 'persistence' => [
                     'phpcr' => [
