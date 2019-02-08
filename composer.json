@@ -1,21 +1,22 @@
 {
-    "name": "wearemarketing/routing-auto-orm-bundle",
+    "name": "symfony-cmf/routing-auto-orm-bundle",
     "type": "symfony-bundle",
-    "description": "",
+    "description": "Provide support to Doctrine ORM",
     "license": "MIT",
     "authors": [
         {
             "name": "WAM Develop Team",
             "email": "develop@wearemarketing.com"
+        },
+        {
+            "name": "Symfony CMF Community",
+            "homepage": "https://github.com/symfony-cmf/routing-auto-bundle/contributors"
         }
-    ],
-    "repositories": [
-        { "type": "github", "url": "git@github.com:wearemarketing/RoutingAutoBundle.git"}
     ],
     "require": {
         "php": "^7.1",
         "doctrine/orm": "~2.5.0",
-        "symfony-cmf/routing-auto-bundle": "dev-feature/allow-orm-support"
+        "symfony-cmf/routing-auto-bundle": "^2.1"
     },
     "require-dev": {
         "symfony/phpunit-bridge": "^3.3 || ^4.0",
