@@ -16,7 +16,8 @@
     "require": {
         "php": "^7.1",
         "doctrine/orm": "~2.5.0",
-        "symfony-cmf/routing-auto-bundle": "^2.1"
+        "symfony-cmf/routing-auto-bundle": "2.1.x-dev",
+        "symfony/symfony": "3.3.4"
     },
     "require-dev": {
         "symfony/phpunit-bridge": "^3.3 || ^4.0",
