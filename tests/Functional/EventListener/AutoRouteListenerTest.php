@@ -226,16 +226,14 @@ class AutoRouteListenerTest extends OrmBaseTestCase
         $this->assertEquals('/blog/unit-testing-blog', $oldRoute->getStaticPrefix());
         $this->assertEquals(
             [
-                '_controller' => 'FrameworkBundle:Redirect:redirect',
+                '_controller' => 'BlogController',
                 '_locale' => 'en',
-                'route' => $newRoute->getName(),
-                'permanent' => true,
                 'type' => 'cmf_routing_auto.redirect',
                 '_route_auto_tag' => 'en',
-                'ignoreAttributes' => ['type'],
             ],
             $oldRoute->getDefaults()
         );
+        $this->assertEquals($newRoute->getName(), $oldRoute->getRedirectTarget());
 
         if ($withPosts) {
             /** @var Post $post */
