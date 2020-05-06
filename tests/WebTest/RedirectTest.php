@@ -32,7 +32,7 @@ class RedirectTest extends OrmBaseTestCase
         ];
     }
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -59,6 +59,6 @@ class RedirectTest extends OrmBaseTestCase
         $client->request('GET', '/seo-articles/seo-article');
         $resp = $client->getResponse();
         $this->assertEquals(301, $resp->getStatusCode());
-        $this->assertContains('Redirecting to <a href="http://localhost/seo-articles/renamed-article">http://localhost/seo-articles/renamed-article</a>', $resp->getContent());
+        $this->assertStringContainsString('Redirecting to <a href="http://localhost/seo-articles/renamed-article">http://localhost/seo-articles/renamed-article</a>', $resp->getContent());
     }
 }

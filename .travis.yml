@@ -33,7 +33,7 @@ env:
     - SYMFONY_PHPUNIT_DIR=.phpunit SYMFONY_PHPUNIT_REMOVE="symfony/yaml"
     - COMPOSER_MEMORY_LIMIT=-1
     - KERNEL_CLASS=Symfony\Cmf\Bundle\RoutingAutoOrmBundle\Tests\Fixtures\App\Kernel
-    - SYMFONY_PHPUNIT_VERSION=5.7
+    - SYMFONY_PHPUNIT_VERSION=8
     - TEST_INSTALLATION=false
 
 matrix:
