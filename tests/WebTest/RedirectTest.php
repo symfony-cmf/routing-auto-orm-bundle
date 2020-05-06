@@ -25,7 +25,7 @@ use Symfony\Cmf\Component\Testing\Functional\DbManager\ORM;
  */
 class RedirectTest extends OrmBaseTestCase
 {
-    public function getKernelConfiguration()
+    public function getKernelConfiguration(): array
     {
         return [
             'environment' => 'orm',
