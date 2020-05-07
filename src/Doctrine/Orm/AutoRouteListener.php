@@ -149,9 +149,15 @@ class AutoRouteListener
 
                 //set persistence order to allow set in the route the contentEntity PK
                 if ($new) {
+
+                    $fromHash = $this->getEntityMetadata($manager, $entity)->name;
+
+                    $commitOrderCalculator->addNode($fromHash, $entity);
+
                     $commitOrderCalculator->addDependency(
-                        $this->getEntityMetadata($manager, $entity),
-                        $this->getEntityMetadata($manager, $autoRoute)
+                        $fromHash,
+                        $this->getEntityMetadata($manager, $autoRoute)->name,
+                        1
                     );
                 }
 
@@ -198,7 +204,8 @@ class AutoRouteListener
                     $autoRoute->setContentId($id);
                     $this->replaceIdOnNameField($autoRoute, $id, 'name');
                     $this->replaceIdOnNameField($autoRoute, $id, 'canonicalName');
-                    $unitOfWork->recomputeSingleEntityChangeSet($this->getEntityMetadata($manager, $autoRoute), $autoRoute);
+
+                    $unitOfWork->computeChangeSet($this->getEntityMetadata($manager, $autoRoute), $autoRoute);
                 }
             }
         }
