@@ -163,9 +163,9 @@ HERE
                 if ($verbose) {
                     $output->writeln(
                         sprintf(
-                            '<comment>    - %sPersisting: </comment> %s <comment>%s</comment>',
+                            '<comment>    - %sPersisting: </comment> %d <comment>%s</comment>',
                             $dryRun ? '(dry run) ' : '',
-                            $autoRouteId['id'],
+                            $autoRouteId,
                             '[...]'.substr(get_class($autoRoute), -10).' '.$autoRoute->getStaticPrefix()
                         )
                     );
@@ -225,7 +225,7 @@ HERE
 
     /**
      * @param $autoRouteableEntity
-     * @return array
+     * @return int|null
      */
     protected function getId($autoRouteableEntity)
     {
