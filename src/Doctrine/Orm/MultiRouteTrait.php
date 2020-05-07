@@ -57,7 +57,9 @@ trait MultiRouteTrait
     public function removeRoute($route)
     {
         $this->initRoutes();
-        if ($key = array_search($route, $this->routes)) {
+
+        $key = array_search($route, $this->routes);
+        if ($key !== false) {
             unset($this->routes[$key]);
         }
 

@@ -30,7 +30,7 @@ class OrmAdapterTest extends TestCase
     /** @var OrmAdapter */
     private $adapter;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->em = $this->prophesize(EntityManagerInterface::class);
 
