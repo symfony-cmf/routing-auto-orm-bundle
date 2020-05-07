@@ -3,10 +3,10 @@ cmf_routing:
         routers_by_id:
             cmf_routing.dynamic_router: 20
             router.default: 100
-#    dynamic:
+    dynamic:
 #        enabled: true
-#        controllers_by_type:
-#            cmf_routing_auto.redirect: cmf_routing_auto.redirect_controller:redirectAction
+        controllers_by_type:
+            cmf_routing_auto.redirect: cmf_routing_auto.redirect_controller:redirectAction
 #        persistence:
 #            orm:
 #                enabled: true
