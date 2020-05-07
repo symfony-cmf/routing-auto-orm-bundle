@@ -63,6 +63,11 @@ class AutoRoute extends Route implements AutoRouteInterface
     private $contentId;
 
     /**
+     * @var string
+     */
+    private $redirectTarget;
+
+    /**
      * @return string
      */
     public function __toString()
@@ -155,10 +160,7 @@ class AutoRoute extends Route implements AutoRouteInterface
      */
     public function setRedirectTarget($autoTarget)
     {
-        $this->setDefault('_controller', 'FrameworkBundle:Redirect:redirect');
-        $this->setDefault('route', $autoTarget->getName());
-        $this->setDefault('permanent', true);
-        $this->setDefault('ignoreAttributes', ['type']);
+        $this->redirectTarget = $autoTarget->getName();
 
         return $this;
     }
@@ -168,7 +170,7 @@ class AutoRoute extends Route implements AutoRouteInterface
      */
     public function getRedirectTarget()
     {
-        return $this->getDefault('route');
+        return $this->redirectTarget;
     }
 
     /**

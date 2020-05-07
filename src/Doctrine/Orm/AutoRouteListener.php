@@ -282,6 +282,7 @@ class AutoRouteListener
 
             foreach ($routes as $route) {
                 $entity->addRoute($route);
+                $route->setContent($entity);
             }
         }
     }

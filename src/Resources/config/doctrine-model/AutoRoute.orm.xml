@@ -15,6 +15,8 @@
         <field name="contentClass" type="string" nullable="true"/>
         <field name="contentId" type="json_array" nullable="true"/>
 
+        <field name="redirectTarget" type="string" nullable="true"/>
+
         <indexes>
             <index name="name_idx" columns="name"/>
         </indexes>
