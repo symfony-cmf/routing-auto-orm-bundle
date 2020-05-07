@@ -24,6 +24,7 @@ use Symfony\Cmf\Bundle\RoutingAutoOrmBundle\Tests\Fixtures\App\Entity\SeoArticle
 use Symfony\Cmf\Bundle\RoutingAutoOrmBundle\Tests\Fixtures\App\Entity\SeoArticleMultilang;
 use Symfony\Cmf\Bundle\RoutingAutoOrmBundle\Tests\Functional\OrmBaseTestCase;
 use Symfony\Cmf\Bundle\RoutingAutoOrmBundle\Tests\Functional\Repository\DoctrineOrm;
+use Symfony\Cmf\Component\RoutingAuto\ConflictResolver\Exception\ExistingUriException;
 use Symfony\Cmf\Component\RoutingAuto\Model\AutoRouteInterface;
 use Symfony\Cmf\Component\Testing\Functional\DbManager\ORM;
 
@@ -34,14 +35,14 @@ use Symfony\Cmf\Component\Testing\Functional\DbManager\ORM;
  */
 class AutoRouteListenerTest extends OrmBaseTestCase
 {
-    public function getKernelConfiguration()
+    public function getKernelConfiguration(): array
     {
         return [
             'environment' => 'orm',
         ];
     }
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -73,7 +74,7 @@ class AutoRouteListenerTest extends OrmBaseTestCase
         /** @var AutoRoute $route */
         $route = $routes[0];
         $this->assertInstanceOf(AutoRoute::class, $route);
-        $this->assertContains('BlogNoTranslatable_'.$blog->getId().'_', $route->getName());
+        $this->assertStringContainsString('BlogNoTranslatable_'.$blog->getId().'_', $route->getName());
         $this->assertEquals('BlogNoTranslatable_'.$blog->getId(), $route->getCanonicalName());
         $this->assertEquals(
             [
@@ -109,7 +110,7 @@ class AutoRouteListenerTest extends OrmBaseTestCase
         $route = $routes[0];
         $this->assertInstanceOf(AutoRoute::class, $route);
         $locale = 'en';
-        $this->assertContains('Blog_'.$blog->getId().'_'.$locale.'_', $route->getName());
+        $this->assertStringContainsString('Blog_'.$blog->getId().'_'.$locale.'_', $route->getName());
         $this->assertEquals('Blog_'.$blog->getId(), $route->getCanonicalName());
         $this->assertEquals(
             [
@@ -160,7 +161,7 @@ class AutoRouteListenerTest extends OrmBaseTestCase
         $newRoute = $routes[0];
         $this->assertEquals('BlogNoTranslatable_'.$blog->getId(), $newRoute->getCanonicalName());
         $this->assertInstanceOf(AutoRoute::class, $newRoute);
-        $this->assertContains('BlogNoTranslatable_'.$blog->getId().'_', $newRoute->getName());
+        $this->assertStringContainsString('BlogNoTranslatable_'.$blog->getId().'_', $newRoute->getName());
         $this->assertEquals('/blog/foobar', $newRoute->getStaticPrefix());
 
         if ($withPosts) {
@@ -214,7 +215,7 @@ class AutoRouteListenerTest extends OrmBaseTestCase
         $newRoute = $routes[1];
         $this->assertEquals('Blog_'.$blog->getId(), $newRoute->getCanonicalName());
         $this->assertInstanceOf(AutoRoute::class, $newRoute);
-        $this->assertContains('Blog_'.$blog->getId().'_en_', $newRoute->getName());
+        $this->assertStringContainsString('Blog_'.$blog->getId().'_en_', $newRoute->getName());
         $this->assertEquals('/blog/foobar', $newRoute->getStaticPrefix());
 
         // How to have to be the old route
@@ -222,7 +223,7 @@ class AutoRouteListenerTest extends OrmBaseTestCase
         $oldRoute = $routes[0];
         $this->assertEquals('Blog_'.$blog->getId(), $oldRoute->getCanonicalName());
         $this->assertInstanceOf(AutoRoute::class, $oldRoute);
-        $this->assertContains('Blog_'.$blog->getId().'_en_', $oldRoute->getName());
+        $this->assertStringContainsString('Blog_'.$blog->getId().'_en_', $oldRoute->getName());
         $this->assertEquals('/blog/unit-testing-blog', $oldRoute->getStaticPrefix());
         $this->assertEquals(
             [
@@ -371,7 +372,7 @@ class AutoRouteListenerTest extends OrmBaseTestCase
         $this->assertSame(get_class($post), $route->getContentClass());
         $this->assertEquals(['id' => $post->getId()], $route->getContentId());
         $this->assertInstanceOf(AutoRoute::class, $route);
-        $this->assertContains('Post_'.$post->getId().'_en_', $route->getName());
+        $this->assertStringContainsString('Post_'.$post->getId().'_en_', $route->getName());
     }
 
     public function testPersistPostNoTranslatable()
@@ -394,7 +395,7 @@ class AutoRouteListenerTest extends OrmBaseTestCase
         $this->assertSame(get_class($post), $route->getContentClass());
         $this->assertEquals(['id' => $post->getId()], $route->getContentId());
         $this->assertInstanceOf(AutoRoute::class, $route);
-        $this->assertContains('PostNoTranslatable_'.$post->getId().'_', $route->getName());
+        $this->assertStringContainsString('PostNoTranslatable_'.$post->getId().'_', $route->getName());
     }
 
     public function testUpdatePost()
@@ -422,7 +423,7 @@ class AutoRouteListenerTest extends OrmBaseTestCase
         $route = $routes[1];
 
         $this->assertInstanceOf(AutoRoute::class, $route);
-        $this->assertContains('Post_'.$post->getId().'_en_', $route->getName());
+        $this->assertStringContainsString('Post_'.$post->getId().'_en_', $route->getName());
 
         $this->assertEquals('/blog/unit-testing-blog/2014/01/25/this-is-different', $route->getStaticPrefix());
     }
@@ -450,7 +451,7 @@ class AutoRouteListenerTest extends OrmBaseTestCase
         $route = $routes[0];
 
         $this->assertInstanceOf(AutoRoute::class, $route);
-        $this->assertContains('PostNoTranslatable_'.$post->getId().'_', $route->getName());
+        $this->assertStringContainsString('PostNoTranslatable_'.$post->getId().'_', $route->getName());
 
         $this->assertEquals('/blog/unit-testing-blog/2014/01/25/this-is-different', $route->getStaticPrefix());
     }
@@ -821,15 +822,14 @@ class AutoRouteListenerTest extends OrmBaseTestCase
         $this->assertNotNull($route);
     }
 
-    /**
-     * @expectedException \Symfony\Cmf\Component\RoutingAuto\ConflictResolver\Exception\ExistingUriException
-     */
     public function testConflictResolverDefaultThrowException()
     {
         $blog = new BlogNoTranslatable();
         $blog->setTitle('Unit testing blog');
         $this->getObjectManager()->persist($blog);
         $this->getObjectManager()->flush();
+
+        $this->expectException(ExistingUriException::class);
 
         $blog = new BlogNoTranslatable();
         $blog->setTitle('Unit testing blog');
