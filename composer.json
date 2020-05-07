@@ -14,22 +14,28 @@
         }
     ],
     "require": {
-        "php": "^7.1",
-        "doctrine/orm": "~2.5.0",
+        "php": "^7.2",
+        "doctrine/orm": "^2.5.0",
         "symfony-cmf/routing-auto-bundle": "2.1.x-dev",
-        "symfony/symfony": "3.3.4"
+        "symfony/framework-bundle": "^3.4 || ^4.4"
     },
     "require-dev": {
-        "symfony/phpunit-bridge": "^3.3 || ^4.0",
-        "symfony/yaml": "^2.8 || ^3.3 || ^4.0",
+        "symfony/phpunit-bridge": "^3.4 || ^4.4",
+        "symfony/yaml": "^3.4 || ^4.4",
         "matthiasnoback/symfony-dependency-injection-test": "^1.0",
         "matthiasnoback/symfony-config-test": "^2.2",
-        "symfony-cmf/testing": "^2.1",
         "symfony-cmf/core-bundle": "^2.1",
         "knplabs/doctrine-behaviors": "1.4.*",
-        "phpspec/prophecy": "^1.7"
+        "phpspec/prophecy": "^1.7",
+        "symfony-cmf/testing": "^3.0",
+        "symfony/monolog-bundle": "^3.5",
+        "symfony/security-bundle": "^3.4 || ^4.4",
+        "symfony/twig-bundle": "^3.4 || ^4.4",
+        "doctrine/doctrine-bundle": "^1.10 || ^2.0",
+        "symfony/translation": "^3.4 || ^4.4",
+        "symfony/form": "^3.4 || ^4.4",
+        "symfony/validator": "^3.4 || ^4.4"
     },
-    "suggest": {},
     "autoload": {
         "psr-4": {
             "Symfony\\Cmf\\Bundle\\RoutingAutoOrmBundle\\": "src/"
