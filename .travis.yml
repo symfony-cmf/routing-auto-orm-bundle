@@ -36,6 +36,7 @@ env:
     - KERNEL_CLASS=Symfony\Cmf\Bundle\RoutingAutoOrmBundle\Tests\Fixtures\App\Kernel
     - SYMFONY_PHPUNIT_VERSION=8
     - TEST_INSTALLATION=false
+    - HAS_XDEBUG=0
 
 matrix:
   include:
@@ -66,6 +67,6 @@ script:
   - composer validate --no-check-all --ansi
   - make test
 
-
-#notifications:
-#  irc: "irc.freenode.org#symfony-cmf"
+after_success:
+  - composer require --dev php-coveralls/php-coveralls
+  - travis_retry php vendor/bin/php-coveralls -v
