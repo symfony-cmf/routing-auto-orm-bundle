@@ -16,17 +16,21 @@ use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Cmf\Component\RoutingAuto\AutoRouteManager;
 use Symfony\Cmf\Component\RoutingAuto\Mapping\MetadataFactory;
 use Symfony\Cmf\Component\RoutingAuto\UriContextCollection;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 
 /**
  * Class RefreshOrmCommand.
  *
  * @author WAM Team <develop@wearemarketing.com>
  */
-class RefreshCommand extends ContainerAwareCommand
+class RefreshCommand extends Command
 {
+    protected static $defaultName = 'cmf:routing:orm:auto:refresh';
+
     /**
      * @var MetadataFactory
      */
@@ -42,10 +46,21 @@ class RefreshCommand extends ContainerAwareCommand
      */
     private $entityManager;
 
+    public function __construct(
+        EntityManagerInterface $entityManager,
+        MetadataFactory $metadataFactory,
+        AutoRouteManager $autoRouteManager
+    ) {
+        $this->entityManager = $entityManager;
+        $this->metadataFactory = $metadataFactory;
+        $this->autoRouteManager = $autoRouteManager;
+
+        parent::__construct();
+    }
+
     public function configure()
     {
         $this
-            ->setName('cmf:routing:orm:auto:refresh')
             ->setDescription('Refresh auto-routeable entities')
             ->setHelp(<<<'HERE'
 WARNING: Experimental!
@@ -78,16 +93,6 @@ HERE
         );
     }
 
-    protected function initialize(InputInterface $input, OutputInterface $output)
-    {
-        parent::initialize($input, $output);
-
-        $container = $this->getContainer();
-        $this->entityManager = $container->get('doctrine')->getManager();
-        $this->metadataFactory = $container->get('cmf_routing_auto.metadata.factory');
-        $this->autoRouteManager = $container->get('cmf_routing_auto.auto_route_manager');
-    }
-
     /**
      * {@inheritdoc}
      */
@@ -114,6 +119,8 @@ HERE
                 $this->processRoutes($output, $classFqn, $verbose, $dryRun);
             }
         }
+
+        return 0;
     }
 
     /**

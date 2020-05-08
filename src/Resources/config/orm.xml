@@ -23,5 +23,12 @@
             <tag name="doctrine.event_listener" event="postPersist"/>
             <tag name="doctrine.event_listener" event="postLoad"/>
         </service>
+
+        <service id="symfony_cmf_bundle_routing_auto_orm.command.refresh_command" class="Symfony\Cmf\Bundle\RoutingAutoOrmBundle\Command\RefreshCommand">
+            <argument type="service" id="doctrine.orm.entity_manager"/>
+            <argument type="service" id="cmf_routing_auto.metadata.factory"/>
+            <argument type="service" id="cmf_routing_auto.auto_route_manager"/>
+            <tag name="console.command"/>
+        </service>
     </services>
 </container>
