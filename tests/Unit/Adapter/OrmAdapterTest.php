@@ -47,7 +47,7 @@ class OrmAdapterTest extends TestCase
             ->addRoute($autoRoute2);
 
         $this->em->remove($autoRoute1)->shouldBeCalled();
-        $this->em->flush($autoRoute1)->shouldBeCalled();
+        $this->em->flush()->shouldBeCalled();
 
         $this->adapter->removeAutoRoute($autoRoute1);
 

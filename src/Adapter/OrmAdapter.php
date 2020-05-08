@@ -118,7 +118,7 @@ class OrmAdapter implements AdapterInterface
         }
 
         $this->em->remove($autoRoute);
-        $this->em->flush($autoRoute);
+        $this->em->flush();
     }
 
     /**
@@ -175,10 +175,7 @@ class OrmAdapter implements AdapterInterface
         $referringAutoRoute->setRedirectTarget($newRoute);
         $referringAutoRoute->setType(AutoRouteInterface::TYPE_REDIRECT);
 
-        // WARNING http://doctrine-orm.readthedocs.org/en/latest/reference/events.html#postflush
-        // Acording with doctrine doc you can not call em:flush into postFlush event
-        // but it seems it works fine when you call it with the entity that you want to persist
-        $this->em->flush($referringAutoRoute);
+        $this->em->flush();
     }
 
     /**

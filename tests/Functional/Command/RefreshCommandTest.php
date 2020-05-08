@@ -21,6 +21,7 @@ use Symfony\Cmf\Component\Testing\Functional\DbManager\ORM;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Output\NullOutput;
 use Symfony\Component\Console\Output\StreamOutput;
+use Symfony\Component\Console\Tester\CommandTester;
 
 /**
  * @group orm
@@ -54,14 +55,10 @@ class RefreshCommandTest extends OrmBaseTestCase
         $this->updateBlogTitle($repository);
 
         $application = $this->getApplication();
-        $input = new ArrayInput([
-            '--verbose' => true,
-        ]);
-        $output = new NullOutput();
-//        $output = new StreamOutput(fopen('php://stdout', 'w'));
-        $command = new RefreshCommand();
-        $command->setApplication($application);
-        $command->run($input, $output);
+
+        $command = $application->find('cmf:routing:orm:auto:refresh');
+        $commandTester = new CommandTester($command);
+        $commandTester->execute(['--verbose' => true]);
 
         $post = $this->getRepository()->findPost('This is a post title');
         $this->getObjectManager()->refresh($post);
