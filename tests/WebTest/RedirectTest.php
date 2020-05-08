@@ -59,6 +59,6 @@ class RedirectTest extends OrmBaseTestCase
         $client->request('GET', '/seo-articles/seo-article');
         $resp = $client->getResponse();
         $this->assertEquals(302, $resp->getStatusCode());
-        $this->assertContains('Redirecting to <a href="/seo-articles/renamed-article">/seo-articles/renamed-article</a>', $resp->getContent());
+        $this->assertStringContainsString('Redirecting to <a href="/seo-articles/renamed-article">/seo-articles/renamed-article</a>', $resp->getContent());
     }
 }
