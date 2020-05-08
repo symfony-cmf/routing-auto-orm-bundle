@@ -17,6 +17,7 @@ use Symfony\Cmf\Bundle\RoutingAutoOrmBundle\Adapter\OrmAdapter;
 use PHPUnit\Framework\TestCase;
 use Symfony\Cmf\Bundle\RoutingAutoOrmBundle\Doctrine\Orm\AutoRoute;
 use Symfony\Cmf\Bundle\RoutingAutoOrmBundle\Tests\Fixtures\App\Entity\Blog;
+use Symfony\Cmf\Bundle\RoutingAutoOrmBundle\Tests\Fixtures\App\Entity\Post;
 
 /**
  * @author WAM Team <develop@wearemarketing.com>
@@ -36,7 +37,6 @@ class OrmAdapterTest extends TestCase
         $this->adapter = new OrmAdapter($this->em->reveal(), AutoRoute::class);
     }
 
-
     public function testRemoveAutoRoute()
     {
         $content = new Blog();
@@ -54,5 +54,22 @@ class OrmAdapterTest extends TestCase
         $routes = $content->getRoutes();
         $this->assertCount(1, $routes);
         $this->assertEquals($autoRoute2, $routes[0]);
+    }
+
+    public function testTranslateObject()
+    {
+        $post = new Post();
+        $post->setCurrentLocale('es');
+        $post->setTitle('Titulo');
+        $post->setCurrentLocale('en');
+        $post->setTitle('Title');
+        $post->mergeNewTranslations();
+
+        $translation = $this->adapter->translateObject($post, 'es');
+
+        $this->assertEquals('es', $translation->getLocale());
+        $this->assertEquals('Titulo', $translation->getTitle());
+        $this->assertEquals('en', $post->getCurrentLocale());
+        $this->assertEquals('Title', $post->getTitle());
     }
 }

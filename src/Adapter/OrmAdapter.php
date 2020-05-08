@@ -85,9 +85,7 @@ class OrmAdapter implements AdapterInterface
      */
     public function translateObject($contentDocument, $locale)
     {
-        $contentDocument->setCurrentLocale($locale);
-
-        return $contentDocument->translate(null, false);
+        return $contentDocument->translate($locale, false);
     }
 
     /**

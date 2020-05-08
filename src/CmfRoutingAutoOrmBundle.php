@@ -13,6 +13,7 @@ namespace Symfony\Cmf\Bundle\RoutingAutoOrmBundle;
 
 use Doctrine\Bundle\DoctrineBundle\DependencyInjection\Compiler\DoctrineOrmMappingsPass;
 use Symfony\Cmf\Bundle\RoutingAutoOrmBundle\DependencyInjection\Compiler\AdaptRefreshCommandPass;
+use Symfony\Cmf\Bundle\RoutingAutoOrmBundle\DependencyInjection\SwitchContentMethodTokenProviderPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
@@ -51,5 +52,7 @@ class CmfRoutingAutoOrmBundle extends Bundle
                 ['CmfRoutingAutoOrmBundle' => 'Symfony\Cmf\Bundle\RoutingAutoOrmBundle\Doctrine\Orm']
             )
         );
+
+        $container->addCompilerPass(new SwitchContentMethodTokenProviderPass());
     }
 }
